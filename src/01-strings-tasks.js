@@ -21,7 +21,7 @@
 
 
 function concatenateStrings(value1, value2) {
-return value1.concat(value2);
+  return value1.concat(value2);
 }
 
 
@@ -37,7 +37,7 @@ return value1.concat(value2);
  *   ''      => 0
  */
 function getStringLength(value) {
-return value.length;
+  return value.length;
 }
 
 /**
@@ -54,7 +54,7 @@ return value.length;
  *   'Chuck','Norris'  => 'Hello, Chuck Norris!'
  */
 function getStringFromTemplate(firstName, lastName) {
-return `Hello, ${firstName} ${lastName}!`;
+  return `Hello, ${firstName} ${lastName}!`;
 }
 
 /**
@@ -83,7 +83,7 @@ function extractNameFromTemplate(value) {
  *   'cat'       => 'c'
  */
 function getFirstChar(value) {
-return value[0];
+  return value[0];
 }
 
 /**
@@ -98,7 +98,7 @@ return value[0];
  *   '\tHello, World! ' => 'Hello, World!'
  */
 function removeLeadingAndTrailingWhitespaces(value) {
-return value.trim();
+  return value.trim();
 }
 
 /**
@@ -113,7 +113,7 @@ return value.trim();
  *   'cat', 3 => 'catcatcat'
  */
 function repeatString(value, count) {
-return value.repeat(count);
+  return value.repeat(count);
 }
 
 /**
@@ -129,7 +129,7 @@ return value.repeat(count);
  *   'ABABAB','BA' => 'ABAB'
  */
 function removeFirstOccurrences(str, value) {
-return str.replace(value, '');
+  return str.replace(value, '');
 }
 
 /**
@@ -144,7 +144,7 @@ return str.replace(value, '');
  *   '<a>' => 'a'
  */
 function unbracketTag(str) {
-return str.slice(1, -1);
+  return str.slice(1, -1);
 }
 
 
@@ -159,7 +159,7 @@ return str.slice(1, -1);
  *  'abcdefghijklmnopqrstuvwxyz' => 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
  */
 function convertToUpperCase(str) {
-return str.toUpperCase();
+  return str.toUpperCase();
 }
 
 /**
@@ -178,7 +178,7 @@ return str.toUpperCase();
  *   'info@gmail.com' => ['info@gmail.com']
  */
 function extractEmails(str) {
-return str.split(';');
+  return str.split(';');
 }
 
 /**
@@ -205,7 +205,38 @@ return str.split(';');
  *
  */
 function getRectangleString(width, height) {
+  const leftTop = '┌';
+  const rightTop = '┐\n';
+  const leftDown = '└';
+  const rightDown = '┘\n';
+  const leftVerticalSpace = '│';
+  const rightVerticalSpace = '│\n';
+  const horizontalSpace = '─';
+  const space = ' ';
+  let result = '';
 
+  for (let i = 0; i < height; i += 1) {
+    if (i === 0) {
+      result = result.concat(
+        leftTop,
+        horizontalSpace.repeat(width - 2),
+        rightTop,
+      );
+    } else if (i === height - 1) {
+      result = result.concat(
+        leftDown,
+        horizontalSpace.repeat(width - 2),
+        rightDown,
+      );
+    } else {
+      result = result.concat(
+        leftVerticalSpace,
+        space.repeat(width - 2),
+        rightVerticalSpace,
+      );
+    }
+  }
+  return result;
 }
 
 
@@ -225,9 +256,20 @@ function getRectangleString(width, height) {
  *    => 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm'
  *
  */
-function encodeToRot13(/* str */) {
-  throw new Error('Not implemented');
+function encodeToRot13(str) {
+  const input = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+  const output = 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm';
+  let result = '';
+  for (let i = 0; i < str.length; i += 1) {
+    if (!input.includes(str[i])) {
+      result = result.concat(str[i]);
+    } else {
+      result = result.concat(output[input.indexOf(str[i])]);
+    }
+  }
+  return result;
 }
+
 
 /**
  * Returns true if the value is string; otherwise false.
@@ -242,8 +284,8 @@ function encodeToRot13(/* str */) {
  *   isString('test') => true
  *   isString(new String('test')) => true
  */
-function isString(/* value */) {
-  throw new Error('Not implemented');
+function isString(value) {
+  return typeof value === 'string' || value instanceof String;
 }
 
 
@@ -271,10 +313,11 @@ function isString(/* value */) {
  *   'Q♠' => 50
  *   'K♠' => 51
  */
-function getCardId(/* value */) {
-  throw new Error('Not implemented');
+function getCardId(value) {
+  const arr = ['A♣', '2♣', '3♣', '4♣', '5♣', '6♣', '7♣', '8♣', '9♣', '10♣', 'J♣', 'Q♣', 'K♣', 'A♦', '2♦', '3♦', '4♦', '5♦', '6♦', '7♦', '8♦', '9♦', '10♦', 'J♦', 'Q♦', 'K♦', 'A♥', '2♥', '3♥', '4♥', '5♥', '6♥', '7♥', '8♥', '9♥', '10♥', 'J♥', 'Q♥', 'K♥', 'A♠', '2♠', '3♠', '4♠', '5♠', '6♠', '7♠', '8♠', '9♠', '10♠', 'J♠', 'Q♠', 'K♠'];
+  const index = arr.findIndex((element) => element === value);
+  return index;
 }
-
 
 module.exports = {
   concatenateStrings,
