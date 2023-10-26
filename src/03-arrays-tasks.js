@@ -166,7 +166,7 @@ function insertItem(arr, item, index) {
  *    [ 'a', 'b', 'c', 'd'], 3  => [ 'a', 'b', 'c' ]
  */
 function getHead(arr, n) {
-return arr.slice(0, n);
+  return arr.slice(0, n);
 }
 
 
@@ -181,7 +181,7 @@ return arr.slice(0, n);
  *    [ 'a', 'b', 'c', 'd'], 3  => [ 'b', 'c', 'd' ]
  */
 function getTail(arr, n) {
-return arr.slice (-n);
+  return arr.slice(-n);
 }
 
 
@@ -205,8 +205,10 @@ return arr.slice (-n);
  *    +'20,21,22,23,24\n'
  *    +'30,31,32,33,34'
  */
+
+
 function toCsvText(arr) {
-  return arr.map((elem) => `${elem}\n`).join('')/ slice(0,-1);
+  return arr.map((elem) => `${elem}\n`).join('').slice(0, -1);
 }
 
 /**
@@ -220,10 +222,10 @@ function toCsvText(arr) {
  *   [ 0, 1, 2, 3, 4, 5 ] => [ 0, 1, 4, 9, 16, 25 ]
  *   [ 10, 100, -1 ]      => [ 100, 10000, 1 ]
  */
-function toArrayOfSquares(arr) {
-return arr.map((elem) => elem ** 2);
-}
 
+function toArrayOfSquares(arr) {
+  return arr.map((elem) => elem ** 2);
+}
 
 
 /**
@@ -240,8 +242,10 @@ return arr.map((elem) => elem ** 2);
  *   [ 0, 0, 0, 0, 0]         => [ 0, 0, 0, 0, 0]
  *   [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ] => [ 1, 3, 6, 10, 15, 21, 28, 36, 45, 55 ]
  */
+
+
 function getMovingSum(arr) {
-  const sum = 0;
+  let sum = 0;
   return arr.map((elem) => {
     sum += elem;
     return sum;
@@ -260,7 +264,7 @@ function getMovingSum(arr) {
  * [ "a" ] => []
  */
 function getSecondItems(arr) {
-  return arr.filter((item,i) => i % 2 !== 0);
+  return arr.filter((item, i) => i % 2 !== 0);
 }
 
 
@@ -278,8 +282,8 @@ function getSecondItems(arr) {
  *  [ 'a', 'b', 'c', null ] => [ 'a', 'b','b', 'c','c','c',  null,null,null,null ]
  *  [ 1,2,3,4,5 ] => [ 1, 2,2, 3,3,3, 4,4,4,4, 5,5,5,5,5 ]
  */
-function propagateItemsByPositionIndex(/* arr */) {
-  throw new Error('Not implemented');
+function propagateItemsByPositionIndex(arr) {
+  return arr.map((elem, i) => `${elem},`.repeat(i + 1).split(',')).flat().filter((elem) => elem !== '').map((elem) => (elem === 'null' ? null : elem));
 }
 
 
@@ -296,8 +300,8 @@ function propagateItemsByPositionIndex(/* arr */) {
  *   [ 1,2,3,4,5,6,7,8,9,10 ] => [ 10, 9, 8 ]
  *   [ 10, 10, 10, 10 ] => [ 10, 10, 10 ]
  */
-function get3TopItems(/* arr */) {
-  throw new Error('Not implemented');
+function get3TopItems(arr) {
+  return arr.sort((a, b) => b - a).slice(0, 3);
 }
 
 
@@ -314,8 +318,8 @@ function get3TopItems(/* arr */) {
  *   [ null, 1, 'elephant' ] => 1
  *   [ 1, '2' ] => 1
  */
-function getPositivesCount(/* arr */) {
-  throw new Error('Not implemented');
+function getPositivesCount(arr) {
+  return arr.filter((item) => typeof item === 'number' && item > 0).length;
 }
 
 /**
@@ -331,8 +335,12 @@ function getPositivesCount(/* arr */) {
  *   [ 'nine','eight','nine','eight'] => [ 'eight','eight','nine','nine']
  *   [ 'one','one','one','zero' ]     => [ 'zero','one','one','one' ]
  */
-function sortDigitNamesByNumericOrder(/* arr */) {
-  throw new Error('Not implemented');
+function sortDigitNamesByNumericOrder(arr) {
+  const digits = {
+    zero: 0, one: 1, two: 2, three: 3, four: 4, five: 5, six: 6, seven: 7, eight: 8, nine: 9,
+  };
+  const digitsArray = Array.from(Object.keys(digits));
+  return arr.map((elem) => digits[elem]).sort((a, b) => a - b).map((elem) => digitsArray[elem]);
 }
 
 /**
@@ -347,8 +355,10 @@ function sortDigitNamesByNumericOrder(/* arr */) {
  *   [ -1, 1, -1, 1 ]      => 0
  *   [ 1, 10, 100, 1000 ]  => 1111
  */
-function getItemsSum(/* arr */) {
-  throw new Error('Not implemented');
+
+
+function getItemsSum(arr) {
+  return arr.reduce(((a, b) => a + b), 0);
 }
 
 /**
